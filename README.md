@@ -965,6 +965,7 @@ public class Main
         
         for(int i=0; i<n; i++){
             thread[i] = new Thread(new nit(rijeci[i], i));
+			thread[i].setName("Nit " + i);
         }
         
         for(int i=0; i<n; i++){
@@ -991,7 +992,7 @@ class nit implements Runnable{
         for(int i=0; i<rijec.length(); i++ ){
             suma+=rijec.charAt(i);
         }
-        System.out.println("Nit " + index + " Suma = " + suma);
+        System.out.println(Thread.currentThread().getName() + " suma = " + suma);
     }
 }
 
