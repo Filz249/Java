@@ -114,122 +114,174 @@ Program na početku treba od korisnika zatražiti unos maksimalnog broja elemena
 ```java
 import java.util.Scanner;
 import java.util.InputMismatchException;
-public class Main
-{
-	public static void main(String[] args) {
-	    Scanner input = new Scanner(System.in);
-	    int n = 0;
-	    int a = 0;
-	    double suma = 0;
-	    int izbor = 0;
-	  do{
-	      System.out.println("Unesite maksimalni broj elemenata n vektora V");
-	      try{
-	          n = input.nextInt();
-	       }catch (Exception greska1){
-	           System.out.println("Niste unijeli integer");
-	           input.nextLine();
-	       }
-	   }while (n<2  || n>10);
-	   
-	   //unos elemenata vektora
-	   double[] vektor = new double[n];
-	   for(int i=0; i<n; i++){
-	       System.out.println("Unesite element " + (i+1) + " vektora");
-	       vektor [i] = input.nextDouble();
-	   }
-	   
-	   //ispis vektora
-	   for(int i=0; i<n; i++){
-	      System.out.println((i+1) + " element vektora: " + vektor[i]);
-	   }
-	   
-	   do{
-	       System.out.println("Unesite dimenzije kvadratne matrice: ");
-	       try{
-	           a = input.nextInt();
-	       }catch(Exception greska2){
-	           System.out.println("Niste unijeli integer");
-	           input.nextLine();
-	       }
-	   }while (a<1 || a>5);
-	   
-	   //unos elemenata matrice
-	    double[][] matrica = new double[a][a];
-	    for(int i=0; i < a; i++){
-	        for(int j=0; j < a; j++){
-	            System.out.println("Unesi elemente matrice " + (i+1) + " x " + (j+1));
-	            matrica[i][j] = input.nextDouble();  
-	        }
-	    }
-	    
-	    //ispis elemenata matrice
-	    for(int i=0; i<a; i++){
-	        for(int j=0; j<a; j++){
-	            System.out.println((i+1) + " x " + (j+1) + " element matrice: " + matrica[i][j]);
-	        }
-	    }
-	    
-	     while (1 == 1){
-	         try{
-    	         //int izbor;
-    	         System.out.println("1. Izracunaj aritmeticku sredinu sporedne dijagonale");
-    	         System.out.println("2. Izracunaj sumu neparnih elemenata prvog retka i prvog stupca matrice");
-    	         System.out.println("3. Ispisi sve brojeve na parnim indexima vektora V");
-    	         System.out.println("4. Izadji iz programa");
-    	         System.out.println("UNOS");
-    	         izbor = input.nextInt();
-    	         if(izbor<1 || izbor>4){
-    	             System.out.println("Neispravan unos. Unesite broj od 1 do 4");
-    	         }
-	         }catch(Exception greska3){
-	             System.out.println("Niste unijeli integer");
-	             input.nextLine();
-	         }
-	         
-	         switch(izbor){
-	             case 1:
-	                 for(int i=0; i<a; i++){
-	                     suma+=matrica[i][a-i-1];
-	                 }
-	                 double ars = suma/a;
-	                 System.out.println("Aritmeticka sredina sporedne dijagonale je: " + ars);
-	                 break;
-	            case 2:
-	                int sumaReda = 0;
-	                int sumaStupca = 0;
-	                for(int i=0; i<a; i++){
-	                    if(matrica [0][i] %2 != 0){
-	                        sumaReda+=matrica[0][i];
-	                    }
-	                }
-	                System.out.println("Suma neparnih elemenata prvog retka je: " +sumaReda);
-	                
-	                for(int i=0; i<a; i++){
-	                     if(matrica[i][0]%2 != 0){
-	                        sumaStupca+=matrica[i][0];
-	                    }
-	                }
-	                System.out.println("Suma neparnih elemenata prvog stupca je: " +sumaStupca);
-	                break;
-	            case 3:
-	                for(int i=0; i<n; i++){
-	                    if(i%2==0){
-	                        System.out.println("Element na parnom indeksu " + i + " : " + vektor[i]);
-	                    }else{
-	                        continue;
-	                    }
-	                }
-	            case 4:
-	                System.exit(0);
-	                break;
 
-	            default:
-	                break;
-	         }
-	     }
-	   
-	}
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        int n = 0;
+        int m = 0;
+        int izbor;
+
+        // Unos dimenzije vektora (2-10)
+        do {
+            try {
+                System.out.print("Unesite broj elemenata vektora V (2-10): ");
+                n = input.nextInt();
+
+                if (n < 2 || n > 10) {
+                    System.out.println("Broj mora biti između 2 i 10!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Greška! Morate unijeti cijeli broj.");
+                input.nextLine();
+            }
+
+        } while (n < 2 || n > 10);
+
+        // Unos elemenata vektora
+        double[] V = new double[n];
+
+        System.out.println("\nUNOS ELEMENATA VEKTORA");
+
+        for (int i = 0; i < n; i++) {
+            while (true) {
+                try {
+                    System.out.print("V[" + i + "] = ");
+                    V[i] = input.nextDouble();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Greška! Unesite broj.");
+                    input.nextLine();
+                }
+            }
+        }
+
+        // Unos dimenzije matrice (1-5)
+        do {
+            try {
+                System.out.print("\nUnesite dimenziju kvadratne matrice (1-5): ");
+                m = input.nextInt();
+
+                if (m < 1 || m > 5) {
+                    System.out.println("Dimenzija mora biti između 1 i 5!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Greška! Morate unijeti cijeli broj.");
+                input.nextLine();
+            }
+
+        } while (m < 1 || m > 5);
+
+        // Unos matrice
+        double[][] matrica = new double[m][m];
+
+        System.out.println("\nUNOS ELEMENATA MATRICE");
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+
+                while (true) {
+                    try {
+                        System.out.print("M[" + i + "][" + j + "] = ");
+                        matrica[i][j] = input.nextDouble();
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Greška! Unesite broj.");
+                        input.nextLine();
+                    }
+                }
+            }
+        }
+
+        // Izbornik
+        while (true) {
+            System.out.println("1. Aritmetička sredina sporedne dijagonale");
+            System.out.println("2. Suma neparnih elemenata prvog retka i prvog stupca");
+            System.out.println("3. Ispis elemenata na parnim indeksima vektora");
+            System.out.println("4. Izlaz");
+
+            try {
+                System.out.print("Odaberite opciju: ");
+                izbor = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Greška! Unesite broj od 1 do 4.");
+                input.nextLine();
+                continue;
+            }
+
+            switch (izbor) {
+
+                case 1:
+
+                    double sumaDijagonale = 0;
+                    for (int i = 0; i < m; i++) {
+                        sumaDijagonale += matrica[i][m - 1 - i];
+                    }
+                    double aritmetickaSredina = sumaDijagonale / m;
+                    System.out.println("Aritmetička sredina sporedne dijagonale iznosi: "
+                            + aritmetickaSredina);
+                    break;
+
+                case 2:
+
+                    double suma = 0;
+                    boolean postojiNeparan = false;
+                    // prvi redak
+                    for (int i = 0; i < m; i++) {
+                        if (matrica[0][i] % 2 != 0) {
+                            suma += matrica[0][i];
+                            postojiNeparan = true;
+                        }
+                    }
+
+                    // prvi stupac
+                    for (int i = 0; i < m; i++) {
+                        // preskačemo [0][0] da se ne zbroji dva puta
+                        if (i == 0) {
+                            continue;
+                        }
+                        if (matrica[i][0] % 2 != 0) {
+                            suma += matrica[i][0];
+                            postojiNeparan = true;
+                        }
+                    }
+                    if (postojiNeparan) {
+                        System.out.println("Suma neparnih elemenata prvog retka i prvog stupca iznosi: "
+                                + suma);
+                    } else {
+                        System.out.println("Nije bilo moguće izračunati sumu jer nema neparnih elemenata.");
+                    }
+
+                    break;
+
+                case 3:
+
+                    System.out.println("Elementi na parnim indeksima:");
+                    for (int i = 0; i < n; i++) {
+
+                        if (i % 2 != 0) {
+                            continue;
+                        }
+                        System.out.println("V[" + i + "] = " + V[i]);
+                    }
+                    break;
+
+                case 4:
+
+                    System.out.println("Program završen.");
+                    input.close();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Neispravan odabir! Unesite broj od 1 do 4.");
+            }
+        }
+    }
 }
 
 ```
