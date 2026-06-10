@@ -659,51 +659,67 @@ public class Main {
 	
 ```java
 import java.util.Scanner;
-public class Main
-{
-	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		int n;
-		System.out.println("Unesite kvadratnu matricu A (max 100 elemenata):");
-		n = input.nextInt();
-		
-		int A[][] = new int [n][n];
-		
-		if(n<=0 || n>100){
-		    System.out.println("Prekoračili ste limit!");
-		    return;
-		}
-		
-		for(int i=0; i<n; i++){
-		    for(int j=0; j<n; j++){
-		        System.out.println("Unesite matricu " + i + " x " + j + ":");
-		        A[i][j] = input.nextInt();
-		    }
-		}
-		
-		System.out.println("Matrica izgleda ovako: ");
-		for(int i=0; i<n; i++){
-		    for(int j=0; j<n; j++){
-		        System.out.println(A[i][j]);
-		    }
-		}
-		
-		int suma = 0;
-		for(int i=0; i<n; i++){
-		    suma += A[i][i];
-		}
-		
-		int suma1 = 0;
-		for(int i=0; i<n; i++){
-		    for(int j=i+1; j<n; j++){
-		        suma1 += A[i][j];
-		    }
-		}
-		int suma2 = suma + suma1;
-		System.out.println("Suma glavne dijagonale i elemenata iznad je: " +suma2);
-	}
-}
 
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        int n;
+        System.out.println("Unesite dimenziju kvadratne matrice A:");
+        n = input.nextInt();
+
+        // maksimalno 100 elemenata
+        if (n <= 0 || n * n > 100) {
+            System.out.println("Matrica smije imati najviše 100 elemenata!");
+            return;
+        }
+
+        int[][] A = new int[n][n];
+        System.out.println("Unesite elemente matrice:");
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("A[" + i + "][" + j + "] = ");
+                A[i][j] = input.nextInt();
+            }
+        }
+        System.out.println("\nMatrica:");
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(A[i][j] + "\t");
+            }
+            System.out.println();
+        }
+        int suma = 0;
+
+        // elementi na i iznad glavne dijagonale
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                suma += sumaZnamenki(A[i][j]);
+            }
+        }
+        System.out.println("\nSuma svih znamenki iznad glavne dijagonale");
+        System.out.println("(uključujući glavnu dijagonalu) iznosi: " + suma);
+        input.close();
+    }
+    // funkcija za računanje sume znamenki jednog broja
+    public static int sumaZnamenki(int broj) {
+
+        broj = Math.abs(broj);
+        int suma = 0;
+
+        if (broj == 0) {
+            return 0;
+        }
+        while (broj != 0) {
+            suma += broj % 10;
+            broj /= 10;
+        }
+        return suma;
+    }
+}
 ```
 </details>
 
