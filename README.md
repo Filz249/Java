@@ -449,7 +449,6 @@ public class Main
 	    System.out.println("Unesite broj redaka matrice: ");
 	    n=input.nextInt();
 	    
-	    
 	    System.out.println("Popunite matricu: ");
 	    int A [][] = new int [n][m];
 	    
@@ -466,35 +465,38 @@ public class Main
 	        }
 	        System.out.println();
 	    }   
-	    
 	    funkcija(A,n,m);
     }
     
     public static void funkcija(int A[][], int n, int m){
-        int suma = 0;
-        int suma2 = 0;
-        int suma3 = 0;
-        if(m==n){
-            for(int i=0; i<n; i++){
-                suma += A[i][i];
-            }
-            double avg = suma/n;
-            System.out.println("Srednja vrijednost glavne dijagonale je: " +avg);
-        }else if(n>m){
-            for(int i=0; i<n; i++){
-                suma2 += A[i][0];
-            }
-            double avg2 = suma2/n;
-            System.out.println("Srednja vrijednost 1. stupca je: " +avg2);
-        }else{
-            for(int j=0; j<m; j++){
-                suma3 += A[0][j];
-            }
-            double avg3 = suma3/m;
-            System.out.println("Srednja vrijednost 1. retka je: " +avg3);
+    int suma = 0;
+    int suma2 = 0;
+    int suma3 = 0;
+
+    if(m == n){
+
+        for(int i = 0; i < n; i++){
+            suma += A[i][i];
+        }
+        double avg = (double)suma / n;
+        System.out.println("Srednja vrijednost glavne dijagonale je: " + avg);
+
+    }else if(n > m){
+        for(int i = 0; i < n; i++){
+            suma2 += A[i][0];
+        }
+        double avg2 = (double)suma2 / n;
+        System.out.println("Srednja vrijednost 1. stupca je: " + avg2);
+
+    }else{
+        for(int j = 0; j < m; j++){
+            suma3 += A[0][j];
         }
 
-    }
+        double avg3 = (double)suma3 / m;
+        System.out.println("Srednja vrijednost 1. retka je: " + avg3);
+    	}
+	}
 }
 
 ```
