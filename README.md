@@ -1295,7 +1295,7 @@ import java.util.Scanner;
 public class Main { 
 public static void main(String[] args) {
     Scanner scanner = new Scanner(System. in);
-    System.out.println(x : "Unesi N:");
+    System.out.println("Unesi N:");
     int n = scanner.nextInt();
     int[][] matrica = new int[n][n];
     System.out.println(x : "Unesi elemente matrice: samo 0 ili 1");
@@ -1305,24 +1305,34 @@ public static void main(String[] args) {
             do {
                 System.out.println("Unesi element[" + i + "][" + j + "]");
                 matrica[i][j] = scanner.nextInt();
-                provjera - matrica[i][j];
+                provjera = matrica[i][j];
             } while (provjera != 1 && provjera != 0);
         }
     }
-    int brojPonavljanja ponavljanje(matrica);
+    int brojPonavljanja = ponavljanje(matrica);
     System.out.println(brojPonavljanja);
 }
 public static int ponavljanje(int[][] matrica) {
     int brojac = 0;
     int redovi = matrica.length;
     int stupci = matrica[0].length;
-    for (int i = 1; i < redovi 1; i ++) {
-        for (int j = 1; j < stupci 1; j ++) {
-            if (matrica[i][j]0 && gore lijevo, gore, gore desno, lijevo, desno, dolje lijevo, dolje, dolje desno matrica[i - 1][j matrica[i][j - 1] matrica[i + 1][j brojac ++;
-                    1] == 1 && matrica[i - 1][j]1 && matrica[i - 1][j + 1]1 && matrica[i][j + 1] == 1 && == == 1 && - 1] == 1 && matrica[i + 1][j] == 1 && matrica[i + 1][j + 1] == 1) {}
+
+    for (int i = 1; i < redovi - 1; i++) {
+        for (int j = 1; j < stupci - 1; j++) {
+            if (matrica[i][j] == 0 &&
+                matrica[i - 1][j - 1] == 1 &&
+                matrica[i - 1][j] == 1 &&
+                matrica[i - 1][j + 1] == 1 &&
+                matrica[i][j - 1] == 1 &&
+                matrica[i][j + 1] == 1 &&
+                matrica[i + 1][j - 1] == 1 &&
+                matrica[i + 1][j] == 1 &&
+                matrica[i + 1][j + 1] == 1) {
+                brojac++;
+            }
         }
-        return brojac;
     }
+    return brojac;
 }
 
 ```
@@ -1349,28 +1359,32 @@ public class Main {
                 matrica[i][j] = scanner.nextInt();
             }
         }
-        for (int i = 0; i < n; i ++) {
-            Thread nit = new Nit(matrica, i);
-            nit.start();
-        }
+        for (int i = 0; i < n; i++) {
+    		Thread nit = new Nit(matrica, i);
+   	 		nit.start();
+			try {
+        		nit.join();
+    		} catch (InterruptedException e) {
+        		e.printStackTrace();
+    		}
+		}
         scanner.close();
     }
 }
-
 
 public class Nit extends Thread {
     private int[][] matrica;
     private int redak;
     public Nit(int[][] matrica, int redak) {
         this.matrica = matrica;
-        this.redak redak;
+        this.redak = redak;
     }
     @Override public void run() {
         int suma = 0;
         for (int stupac : matrica[redak]) {
             suma = suma + stupac;
         }
-        System.out.println("Nit " + redak + "suma= " + suma);
+        System.out.println("Nit " + redak + " suma = " + suma);
     }
 }
 
