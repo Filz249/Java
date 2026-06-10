@@ -753,6 +753,7 @@ public class Main
 	    //POLJU NITI DODIJELI STA SVAKA NIT TREBA RADITI
 	    for(int i=0;i<n;i++){
 	        thread[i]= new Thread(new racun(A[i],i,n));
+			thread[i].setName("Nit " + i);
 	    }
 	    
 		
@@ -798,7 +799,7 @@ class racun implements Runnable{
         
     }
     
-    System.out.println("Nit " + index + " suma = "+ suma);
+    System.out.println(Thread.currentThread().getName() + " suma = " + suma);
     }
     
 }
