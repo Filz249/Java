@@ -887,7 +887,7 @@ public class Main
 	 int n;
 	 System.out.println("Unesite cjelobrojnu kvadratnu matricu A: ");
 	 n=input.nextInt();
-	 if(n<=0 || n>100){
+	 if(n<=0 || n*n>100){
 	     System.out.println("Greska");
 	     return;
 	 }
