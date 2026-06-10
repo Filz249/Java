@@ -412,10 +412,15 @@ public class Main
 	    System.out.println("Suma glavne dijagonale: " +suma);
 	    System.out.println("Suma sporedne dijagonale: " +suma2);
 	    
-	    if(suma>suma2){
-	        System.out.println("Suma glavne dijagonale je veća");
-	    }else{
-	        System.out.println("Suma sporedne dijagonale je veća");
+	    if(suma > suma2){
+    		System.out.println("Suma glavne dijagonale je veća");
+		}
+		else if(suma2 > suma){
+    		System.out.println("Suma sporedne dijagonale je veća");
+		}
+		else{
+    		System.out.println("Sume dijagonala su jednake");
+		}
 	    }
 	}
 }
