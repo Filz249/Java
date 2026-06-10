@@ -559,7 +559,7 @@ public class Main {
         System.out.println("Unesite kvadratnu matricu A (max 100 elemenata): ");
         n = input.nextInt();
         
-        if (n <= 0 || n > 100) {
+        if (n <= 0 || n * n > 100) {
             System.out.println("Ponovite unos! Veličina matrice je max 100 elemenata ");
             return;
         }
