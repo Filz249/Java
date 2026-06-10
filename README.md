@@ -816,55 +816,56 @@ class racun implements Runnable{
 	
 ```java
 import java.util.Scanner;
+
 public class Main
 {
-	public static void main(String[] args) {
-	    Scanner input = new Scanner(System.in); 
-	    int n, m;
-	    
-	    System.out.println("Unesite koliko redova matrica da ima: ");
-	    n=input.nextInt();
-	    System.out.println("Unesite koliko stupaca matrica da ima: ");
-	    m=input.nextInt();
-	    
-	    int A [] [] = new int [n][m];
-	    for(int i=0; i<n; i++){
-	        for(int j=0; j<m; j++){
-	            System.out.println("Unesite matricu " + i + " x " + j);
-	            A[i][j]=input.nextInt();
-	        }
-	    }
-	    
-	    System.out.println("Matrica izgleda ovako: ");
-	    for(int i=0; i<n; i++){
-	        for(int j=0; j<m; j++){
-	            System.out.println(A[i][j]);
-	        }
-	    }
-	    
-	    trans(A,n,m);
-	    System.out.println("Transponirana matrica: ");
-	    int C [][] = trans(A,n,m);
-	
-	    for(int i=0; i<m; i++){
-	        for(int j=0; j<n; j++){
-	            System.out.println(C[i][j]);
-	        }
-	    }
-	    input.close();
-	}
-	
-	
-	
-	public static int[][] trans (int A[][], int n, int m){
-	    int B [] [] = new int[m][n];
-	    for(int i=0; i<n; i++){
-	        for(int j=0; j<m; j++){
-	            B[j][i]=A[i][j];
-	        }
-	    }
-	    return B;
-	}
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int n, m;
+        System.out.println("Unesite koliko redova matrica da ima: ");
+        n = input.nextInt();
+
+        System.out.println("Unesite koliko stupaca matrica da ima: ");
+        m = input.nextInt();
+
+        int A[][] = new int[n][m];
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                System.out.println("Unesite matricu " + i + " x " + j);
+                A[i][j] = input.nextInt();
+            }
+        }
+        System.out.println("Matrica izgleda ovako: ");
+
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println("Transponirana matrica: ");
+        int C[][] = trans(A, n, m);
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                System.out.print(C[i][j] + " ");
+            }
+            System.out.println();
+        }
+        input.close();
+    }
+
+    public static int[][] trans(int A[][], int n, int m){
+
+        int B[][] = new int[m][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                B[j][i] = A[i][j];
+            }
+        }
+        return B;
+    }
 }
 
 ```
