@@ -1746,6 +1746,91 @@ public class Main {
 <br>
 <br>
 
+<details>
+<summary><strong> Napravite klase Osoba koja opisuje neku osobu. Klasa Osoba sadrži privatne atribute ime (String), prezime (String). Napisati konstruktor, get i set metode te metode toString koja će ispisati tekst u obliku "ime-prezime".
+
+Napraviti klasu Radnik koja nasljeđuje klasu Osoba te definira dodatni atribut radnikId (String) i placa (double). Napišite konstruktore za sve parametre, get i set metode te metodu toString koja će ispisati tekst u obliku "ime-prezime-id-placa". Dodati metodu postaviPlacu koja prima postotak za koji će uvećati plaću radniku.
+
+U Test klasi potrebno je sa tipkovnice unijeti podatke za objekt klase Radnik. </strong></summary>
+
+```java
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+class Osoba {
+    private String ime;
+    private String prezime;
+
+    public Osoba(String ime, String prezime) {
+        this.ime = ime;
+        this.prezime = prezime;
+    }
+
+    public String getIme() { return ime; }
+    public void setIme(String ime) { this.ime = ime; }
+
+    public String getPrezime() { return prezime; }
+    public void setPrezime(String prezime) { this.prezime = prezime; }
+
+    @Override
+    public String toString() {
+        return ime + "-" + prezime;
+    }
+}
+class Radnik extends Osoba {
+    private String radnikId;
+    private double placa;
+
+    public Radnik(String ime, String prezime, String radnikId, double placa) {
+        super(ime, prezime); 
+        this.radnikId = radnikId;
+        this.placa = placa;
+    }
+
+    public String getRadnikId() { return radnikId; }
+    public void setRadnikId(String radnikId) { this.radnikId = radnikId; }
+
+    public double getPlaca() { return placa; }
+    public void setPlaca(double placa) { this.placa = placa; }
+
+    public void postaviPlacu(double postotak) {
+        this.placa = this.placa * (1 + postotak / 100.0);
+    }
+    @Override
+    public String toString() {
+        DecimalFormat df = new DecimalFormat("0.00");
+        return super.toString() + "-" + radnikId + "-" + df.format(placa);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String ime = sc.nextLine();
+        String prezime = sc.nextLine();
+        String radnikId = sc.nextLine();
+        double placa = sc.nextDouble();
+        double postotak = sc.nextDouble();
+
+        Radnik radnik = new Radnik(ime, prezime, radnikId, placa);
+
+        radnik.postaviPlacu(postotak);
+
+        System.out.println("output = " + radnik);
+
+        sc.close();
+    }
+}
+```
+
+</details>
+
+---
+<br>
+<br>
+
+
+
 # PREDROK ZADACI
 
 
