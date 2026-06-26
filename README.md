@@ -1490,11 +1490,265 @@ public class Main implements ActionListener {
 <br>
 <br>
 
+<details>
+<summary><strong>Napisati apstraktnu klasu Matrica koja u sebi sadrži metodu izracunaj koja prima matricu kao parametar. Klasa Test nasljeđuje klasu Matrica. Za zadanu kvadratnu matricu A s N redaka i N stupaca koja u sebi ima samo nule i jedinice izračunati koliko ima pojavljivanja broja 0, a da su oko njega sve jedinice. Zadana matrica prosljeđuje se u metodu izracunaj.</strong></summary>
 
+```java
+import java.util.Scanner;
+
+abstract class Matrica {
+    public abstract void izracunaj(int[][] matrica);
+}
+class Test extends Matrica {
+    @Override
+    public void izracunaj(int[][] matrica) {
+        if (matrica == null || matrica.length == 0) {
+            System.out.println("Matrica je prazna.");
+            return;
+        }
+        int n = matrica.length;
+        int brojacNula = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                
+                if (matrica[i][j] == 0) {
+                    boolean sveJediniceOkoNje = true;
+
+                    for (int di = -1; di <= 1; di++) {
+                        for (int dj = -1; dj <= 1; dj++) {
+                            
+                            if (di == 0 && dj == 0) continue;
+
+                            int noviRedak = i + di;
+                            int noviStupac = j + dj;
+
+                            if (noviRedak >= 0 && noviRedak < n && noviStupac >= 0 && noviStupac < n) {
+                                if (matrica[noviRedak][noviStupac] != 1) {
+                                    sveJediniceOkoNje = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!sveJediniceOkoNje) break;
+                    }
+
+                    if (sveJediniceOkoNje) {
+                        brojacNula++;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Broj nula okruženih isključivo jedinicama: " + brojacNula);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        int[][] matricaA = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matricaA[i][j] = scanner.nextInt();
+            }
+        }
+        Matrica t = new Test();
+        t.izracunaj(matricaA);
+        scanner.close();
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong>Napisati višenitni program koji se sastoji od klase Test i od klase Brojac koja nasljeđuje klasu Thread. Klasa Brojac (konstruktor) kao parametar prima parametar (0 ili 1). Ako primi "0" treba ispisati sve parne brojeve između 0 - 100. Ako primi "1" treba ispisivati neparne brojeve između 100 - 300.</strong></summary>
+
+```java
+class Brojac extends Thread {
+    private int parametar;
+    public Brojac(int parametar) {
+        this.parametar = parametar;
+    }
+    @Override
+    public void run() {
+        if (parametar == 0) {
+            for (int i = 0; i <= 100; i++) {
+                if (i % 2 == 0) {
+                    System.out.println(Thread.currentThread().getName() + " (Parni): " + i);
+                }
+            }
+        } else if (parametar == 1) {
+            for (int i = 100; i <= 300; i++) {
+                if (i % 2 != 0) {
+                    System.out.println(Thread.currentThread().getName() + " (Neparni): " + i);
+                }
+            }
+        } else {
+            System.out.println("Neispravan parametar dretve.");
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Brojac parnaNit = new Brojac(0);
+        Brojac neparnaNit = new Brojac(1);
+        parnaNit.setName("Nit-0");
+        neparnaNit.setName("Nit-1");
+        parnaNit.start();
+        neparnaNit.start();
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong>Napisati klasu TestAutomobila koja ima privatne članove naziv, potrosnjaGoriva i prijedjenPut. Napisati klasu UsporedbaPotrosnje koja u sebi sadrži static metodu usporedi koja prima dva objekta klase TestAutomobila, računa i ispisuje prosječnu potrošnju svakog te koji je automobil štedljiviji.</strong></summary>
+
+```java
+class TestAutomobila {
+    private String naziv;
+    private double potrosnjaGoriva; 
+    private double prijedjenPut;   
+
+    public TestAutomobila(String naziv, double potrosnjaGoriva, double prijedjenPut) {
+        this.naziv = naziv;
+        this.potrosnjaGoriva = potrosnjaGoriva;
+        this.prijedjenPut = prijedjenPut;
+    }
+    public String getNaziv() {
+        return naziv;
+    }
+    public double izracunajProsjek() {
+        if (prijedjenPut == 0) {
+            return 0; 
+        }
+        return (potrosnjaGoriva / prijedjenPut) * 100;
+    }
+}
+class UsporedbaPotrosnje {
+
+    public static void usporedi(TestAutomobila auto1, TestAutomobila auto2) {
+        double prosjek1 = auto1.izracunajProsjek();
+        double prosjek2 = auto2.izracunajProsjek();
+
+        System.out.printf("Prosječna potrošnja za %s iznosi: %.2f l/100km%n", auto1.getNaziv(), prosjek1);
+        System.out.printf("Prosječna potrošnja za %s iznosi: %.2f l/100km%n", auto2.getNaziv(), prosjek2);
+
+        if (prosjek1 < prosjek2) {
+            System.out.println("Štedljiviji automobil je: " + auto1.getNaziv());
+        } else if (prosjek2 < prosjek1) {
+            System.out.println("Štedljiviji automobil je: " + auto2.getNaziv());
+        } else {
+            System.out.println("Oba automobila imaju jednaku prosječnu potrošnju.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TestAutomobila prviAuto = new TestAutomobila("Opel Astra", 7.2, 110);
+        TestAutomobila drugiAuto = new TestAutomobila("Renault Clio", 5.5, 100);
+        UsporedbaPotrosnje.usporedi(prviAuto, drugiAuto);
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong> Potrebno je definirati vlastitu iznimku (klasa će se zvati VlastitaIznimka). Prilikom instanciranja konstruktor treba primiti dva parametra (identifikator i poruku). U test klasi potrebno je pozvati funkciju koja prima String. Ukoliko je proslijeđeni String duljine manje od 5 znakova potrebno je baciti iznimku s nekim identifikatorom i pripadajućom porukom (ti podaci se ispisuju u catch bloku).</strong></summary>
+
+```java
+public class VlastitaIznimka extends Exception {
+    private String Identifikator;
+    public VlastitaIznimka(String Ident, String poruka) {
+        super(poruka); 
+        this.Identifikator = Ident;
+    }
+    public String getIdentifikator() {
+        return this.Identifikator;
+    }
+}
+class TestIznimke {
+    public static void funkcija(String ime) throws VlastitaIznimka {
+        if (ime.length() < 5) {
+            throw new VlastitaIznimka("Ident", "Poruka");
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            funkcija("Miro");
+        } catch (VlastitaIznimka ex) { 
+            System.out.println(ex.getIdentifikator() + " " + ex.getMessage());
+        }
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong>Potrebno je napisati program u Javi koji će učitanu kvadratnu matricu A ispisati u tzv. "zmija" uzorku. N koji predstavlja dimenzije A matrice. Slijedi N redaka s N stupaca cijelih brojeva koji predstavljaju elemente matrice</strong></summary>
+
+```java
+import java.util.Scanner; 
+
+public class Main { 
+    public static void main(String[] args) { 
+
+        int n; 
+        Scanner sc = new Scanner(System.in); 
+        System.out.println("Unesite broj stupaca i redaka matrice: "); 
+        n = sc.nextInt();
+        int[][] matrica = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrica[i][j] = sc.nextInt();
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(matrica[i][j] + " ");
+                }
+            } else {
+                for (int j = n - 1; j >= 0; j--) {
+                    System.out.print(matrica[i][j] + " ");
+                }
+            }
+        }
+        System.out.println(); 
+        sc.close();
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
 
 # PREDROK ZADACI
 
-	
+
 <details>
 <summary><strong> Potrebno je napisati program u Javi koji će za kvadratnu matricu A s N redaka i stupaca * koja u sebi ima samo nule i jedinice izračunati koliko ima pojavljivanja broja 0, a da su oko njega sve jedinice.</strong></summary>
 	
