@@ -1291,6 +1291,207 @@ public class Main {
 <br>
 <br>
 
+<details>
+<summary><strong> Potrebno je napisati program u Javi koji će sa standardnog ulaza učitati broj $N$ koji predstavlja dimenzije matrice. Nakon toga potrebno je stvoriti $N$ niti koje će obraditi matricu (niti se trebaju izvršavati jedna iza druge, odnosno treba čekati dodijeljeno ime u obliku "Nit 1", "Nit 2", "Nit 3" itd. te bi trebala izračunati sumu elemenata horizontalno (lijevo ili desno ovisno o tome je li red paran ili neparan) od elementa sporedne dijagonale (ne uzimajući u obzir element na sporednoj dijagonali). Suma se radi horizontalno prema lijevo ako se radi o parnom retku, a horizontalno prema desno ako se radi o neparnom retku.</strong></summary>
+	
+```java
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
+/*
+    Metoda za postavljanje/dohvat imena niti je setName/getName
+    Metoda za dohvat trenutne niti koja se izvršava je Thread.currentThread()
+*/
+
+class Nit extends Thread {
+    private int redakIndex;
+    private int[][] matrica;
+    private int n;
+    private int suma = 0;
+
+    public Nit(String ime, int redakIndex, int[][] matrica, int n) {
+        this.setName(ime);
+        this.redakIndex = redakIndex;
+        this.matrica = matrica;
+        this.n = n;
+    }
+
+    @Override
+    public void run() {
+        int sporednaKolona = n - 1 - redakIndex;
+
+        if (redakIndex % 2 == 0) {
+            // Paran redak -> lijevo od sporedne dijagonale
+            for (int j = 0; j < sporednaKolona; j++) {
+                suma += matrica[redakIndex][j];
+            }
+        } else {
+            for (int j = sporednaKolona + 1; j < n; j++) {
+                suma += matrica[redakIndex][j];
+            }
+        }
+        System.out.println(this.getName() + " " + suma);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int n = scanner.nextInt();
+        int[][] matrica = new int[n][n];
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrica[i][j] = scanner.nextInt();
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            Nit nit = new Nit("Nit " + i, i, matrica, n);
+            nit.start();
+            try {
+                nit.join(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        scanner.close();
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong>Za grafičko sučelje koje se sastoji od jednog text field-a "unosTF" u koji se unosi nekakva rečenica za provjeru i button-a "provjeri". Dovršiti programski kod kojim dodjeljujemo slušač na dugmić "provjeri" te odgovarajuću akciju na taj dugmić. Kada se klikne na dugmić program bi trebao prikupiti uneseni tekst iz text field-a i izračunati koliko se samoglasnika nalazi u unesenoj rečenici iz text-fielda te rezultat prikazati u obliku dijalog poruke.</strong></summary>
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class Klasa implements ActionListener {
+
+    private JButton provjeri;
+    private JTextField unosTF;
+
+    private void initGUI() {
+        JFrame prozor = new JFrame();
+
+
+        JPanel panel = new JPanel(new FlowLayout());
+
+        provjeri = new JButton("Provjeri");
+
+        provjeri.addActionListener(this);
+
+        unosTF = new JTextField(50);
+
+        panel.add(provjeri);
+        panel.add(unosTF);
+
+        prozor.add(panel);
+
+        prozor.setSize(new Dimension(500, 100));
+        prozor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        prozor.setResizable(false);
+        prozor.setVisible(true);
+    }
+
+    public static void main(String[] String) {
+        new Klasa().initGUI();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        char[] txt = unosTF.getText().toLowerCase().toCharArray();
+
+        int brojac = 0;
+        for (int i = 0; i < txt.length; i++) {
+            if (txt[i] == 'a' || txt[i] == 'e' || txt[i] == 'i' || txt[i] == 'o' || txt[i] == 'u') {
+                brojac++;
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "U tekstu se nalazi " + brojac + " samoglasnika!", "Samoglasnici", JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong> ... grafičko sučelje koje se sastoji od jednog TextField-a (unosTF) u koji se unosi nekakva rečenica za provjeru i Button-a (provjeri). Napisati programski kod kojim dodjeljujemo slušač (listener) na dugmić "provjeri" te odgovarajuću akciju na taj dugmić. Kada se klikne na dugmić program bi trebao pokupiti uneseni tekst iz TextField-a i izračunati koliko se glasnika (samoglasnika/samoglasnika pretpostavljeno - u tekstu piše "glasnika", što su najvjerojatnije samoglasnici: a, e, i, o, u) nalazi u unesenoj rečenici iz TextField-a.</strong></summary>
+	
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main implements ActionListener {
+
+    private JButton provjeri;
+    private JTextField unosTF;
+
+    private void initGUI() {
+        JFrame prozor = new JFrame();
+        JPanel panel = new JPanel(new FlowLayout());
+
+        provjeri = new JButton("Provjeri");
+        provjeri.addActionListener(this);
+
+        unosTF = new JTextField(50);
+
+        panel.add(provjeri);
+        panel.add(unosTF);
+        prozor.add(panel);
+
+        prozor.setSize(new Dimension(500, 100));
+        prozor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        prozor.setResizable(false);
+        prozor.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Main().initGUI();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        char[] txt = unosTF.getText().toLowerCase().toCharArray();
+        
+        int brojac = 0;
+        
+        for (int i = 0; i < txt.length; i++) {
+            if (txt[i] == 'a' || txt[i] == 'e' || txt[i] == 'i' || txt[i] == 'o' || txt[i] == 'u') {
+                brojac++;
+            }
+        }
+        System.out.println("Broj samoglasnika u rečenici: " + brojac);
+    }
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+
+
 # PREDROK ZADACI
 
 	
