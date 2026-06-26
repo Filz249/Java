@@ -1908,7 +1908,7 @@ public class Main {
 <br>
 
 <details>
-<summary><strong>U ovom zadatku tražimo sve nule (0) kojima su svi postojeći susjedi (horizontalni, vertikalni i dijagonalni) jednaki 1. Za elemente na rubovima matrice provjeravaju se samo oni susjedi koji se nalaze unutar granica matrice.</strong></summary>
+<summary><strong>Potrebno je napisati program u Javi koji će za kvadratnu matricu A s N redaka i N stupaca koja u sebi ima samo nule i jedinice izračunati koliko ima pojavljivanja broja 0, a da su oko njega sve jedinice.</strong></summary>
 
 ```java 
 import java.util.Scanner;
