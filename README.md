@@ -1822,13 +1822,11 @@ public class Main {
     }
 }
 ```
-
 </details>
 
 ---
 <br>
 <br>
-
 
 
 # PREDROK ZADACI
