@@ -124,7 +124,6 @@ public class Main {
         int m = 0;
         int izbor;
 
-        // Unos dimenzije vektora (2-10)
         do {
             try {
                 System.out.print("Unesite broj elemenata vektora V (2-10): ");
@@ -141,7 +140,6 @@ public class Main {
 
         } while (n < 2 || n > 10);
 
-        // Unos elemenata vektora
         double[] V = new double[n];
 
         System.out.println("\nUNOS ELEMENATA VEKTORA");
@@ -159,7 +157,6 @@ public class Main {
             }
         }
 
-        // Unos dimenzije matrice (1-5)
         do {
             try {
                 System.out.print("\nUnesite dimenziju kvadratne matrice (1-5): ");
@@ -176,7 +173,6 @@ public class Main {
 
         } while (m < 1 || m > 5);
 
-        // Unos matrice
         double[][] matrica = new double[m][m];
 
         System.out.println("\nUNOS ELEMENATA MATRICE");
@@ -197,7 +193,6 @@ public class Main {
             }
         }
 
-        // Izbornik
         while (true) {
             System.out.println("1. Aritmetička sredina sporedne dijagonale");
             System.out.println("2. Suma neparnih elemenata prvog retka i prvog stupca");
@@ -230,7 +225,6 @@ public class Main {
 
                     double suma = 0;
                     boolean postojiNeparan = false;
-                    // prvi redak
                     for (int i = 0; i < m; i++) {
                         if (matrica[0][i] % 2 != 0) {
                             suma += matrica[0][i];
@@ -238,9 +232,7 @@ public class Main {
                         }
                     }
 
-                    // prvi stupac
                     for (int i = 0; i < m; i++) {
-                        // preskačemo [0][0] da se ne zbroji dva puta
                         if (i == 0) {
                             continue;
                         }
@@ -305,7 +297,6 @@ public class Main
 		System.out.println("Unesite velicinu kvadratne matrice A i B: ");
 		n=input.nextInt();
 		
-	
 		int A [][] = new int [n][n];
 		int B [][] = new int [n][n];
 		
@@ -315,7 +306,6 @@ public class Main
 		        A[i][j]=input.nextInt();
 		    }
 		}
-		
 		System.out.println("Unesite elemente kvadratne matrice B: ");
 		for(int i=0; i<n; i++){
 		    for(int j=0; j<n; j++){
@@ -573,13 +563,10 @@ public class Main {
                 A[i][j] = input.nextInt();
                 // da bi se samo izracunao prvi red (i je red, a indeksi krecu od 0)
                 if (i == 0) {
-                    // Računanje sume znamenki prvog reda
                     sumaZnamenkiPrvogReda += sumaZnamenki(A[i][j]);
                 }
             }
         }
-        
-        // Provera da li se radi o magičnom kvadratu
         int sumaPrvogReda = sumaReda(A[0]);
         boolean magicniKvadrat = true;
         
@@ -598,12 +585,8 @@ public class Main {
         } else {
             System.out.println("1");
         }
-        
-        // Ispis sume znamenki prvog reda
         System.out.println(sumaZnamenkiPrvogReda);
     }
-    
-    // Metoda za računanje sume znamenki broja
     public static int sumaZnamenki(int broj) {
         int suma = 0;
         while (broj != 0) {
@@ -613,7 +596,6 @@ public class Main {
         return suma;
     }
     
-    // Metoda za računanje sume reda
     public static int sumaReda(int[] red) {
         int suma = 0;
         for (int broj : red) {
@@ -622,7 +604,6 @@ public class Main {
         return suma;
     }
     
-    // Metoda za računanje sume stupca
     public static int sumaStupca(int[][] matrica, int indeksStupca) {
         int suma = 0;
         for (int i = 0; i < matrica.length; i++) {
@@ -631,7 +612,6 @@ public class Main {
         return suma;
     }
     
-    // Metoda za računanje sume dijagonale (dijagonala1 ako je dijagonala=true, dijagonala2 ako je dijagonala=false)
     public static int sumaDijagonale(int[][] matrica, boolean dijagonala) {
         int suma = 0;
         if (dijagonala) {
@@ -669,7 +649,6 @@ public class Main {
         System.out.println("Unesite dimenziju kvadratne matrice A:");
         n = input.nextInt();
 
-        // maksimalno 100 elemenata
         if (n <= 0 || n * n > 100) {
             System.out.println("Matrica smije imati najviše 100 elemenata!");
             return;
@@ -694,7 +673,6 @@ public class Main {
         }
         int suma = 0;
 
-        // elementi na i iznad glavne dijagonale
         for (int i = 0; i < n; i++) {
             for (int j = i; j < n; j++) {
                 suma += sumaZnamenki(A[i][j]);
@@ -704,7 +682,6 @@ public class Main {
         System.out.println("(uključujući glavnu dijagonalu) iznosi: " + suma);
         input.close();
     }
-    // funkcija za računanje sume znamenki jednog broja
     public static int sumaZnamenki(int broj) {
 
         broj = Math.abs(broj);
@@ -747,10 +724,8 @@ public class Main
 		    }
 		}
 		
-		//NAPRAVI POLJE NITI OBAVEZNO!!!
 	    Thread[] thread = new Thread[n];
 	    
-	    //POLJU NITI DODIJELI STA SVAKA NIT TREBA RADITI
 	    for(int i=0;i<n;i++){
 	        thread[i]= new Thread(new racun(A[i],i,n));
 			thread[i].setName("Nit " + i);
@@ -758,10 +733,8 @@ public class Main
 	    
 		
 		for(int i=0;i<n;i++){
-		    //POKRENE NITI
 		    thread[i].start();
 		    try{
-		        //DA SE REDOM IZVRSAVAJU
 		        thread[i].join();
 		    }catch(InterruptedException e){
 		        e.printStackTrace();    
@@ -956,10 +929,8 @@ public class Main
         System.out.println("Unesi recenicu: ");
         String recenica = input.nextLine();
         
-        //s+ trazi space
         String [] rijeci = recenica.split("\\s+");
         
-        //nadje koliko ima elemenata (rijeci)
         int n = rijeci.length;
         Thread thread[] = new Thread[n];
         
@@ -1105,9 +1076,6 @@ public class Main
             System.out.println();
             }
         Thread thread[]  = new Thread[n];
-        
-        
-        //PREDAJEMO NITI CIJELU MATRICU JER STUPAC NE MOŽE, SAMO REDAK
         for(int i=0;i<n;i++){
                 thread[i]=new Thread(new dijagonala(A,i,n));
             }
@@ -1134,8 +1102,7 @@ class dijagonala implements Runnable{
     }
     public void run(){
         int suma = 0;
-        
-        //ZBRAJA SE SA INDEXOM JER ŽELIMO SAMO ELEMENTE GLAVNE DIJAGONALE I ISPOD  NJE
+
         for(int i=0+index; i<n; i++){
             //INDEX OZNACAVA STUPAC, A i REDAK
             suma+=A[i][index];
@@ -1212,7 +1179,6 @@ public static void main(String[] args) {
 import java.util.Scanner;
 public class Main {
     
-    // Function to print a 2D array in spiral order
     public static void printSpiral(int[][] matrix) {
         if (matrix.length == 0) {
             return;
@@ -1224,29 +1190,22 @@ public class Main {
         int right = matrix[0].length - 1;
 
         while (top <= bottom && left <= right) {
-            // Print top row
             for (int i = left; i <= right; i++) {
                 System.out.print(matrix[top][i] + " ");
             }
-
             top++;
 
-            // Print right column
             for (int i = top; i <= bottom; i++) {
                 System.out.print(matrix[i][right] + " ");
             }
 
             right--;
-
-            // Print bottom row if it still exists
             if (top <= bottom) {
                 for (int i = right; i >= left; i--) {
                     System.out.print(matrix[bottom][i] + " ");
                 }
                 bottom--;
             }
-
-            // Print left column if it still exists
             if (left <= right) {
                 for (int i = bottom; i >= top; i--) {
                     System.out.print(matrix[i][left] + " ");
@@ -1292,7 +1251,7 @@ public class Main {
 <br>
 
 <details>
-<summary><strong> Potrebno je napisati program u Javi koji će sa standardnog ulaza učitati broj $N$ koji predstavlja dimenzije matrice. Nakon toga potrebno je stvoriti $N$ niti koje će obraditi matricu (niti se trebaju izvršavati jedna iza druge, odnosno treba čekati dodijeljeno ime u obliku "Nit 1", "Nit 2", "Nit 3" itd. te bi trebala izračunati sumu elemenata horizontalno (lijevo ili desno ovisno o tome je li red paran ili neparan) od elementa sporedne dijagonale (ne uzimajući u obzir element na sporednoj dijagonali). Suma se radi horizontalno prema lijevo ako se radi o parnom retku, a horizontalno prema desno ako se radi o neparnom retku.</strong></summary>
+<summary><strong> Potrebno je napisati program u Javi koji će sa standardnog ulaza učitati broj $N$ koji predstavlja dimenzije matrice. Nakon toga potrebno je stvoriti N niti koje će obraditi matricu (niti se trebaju izvršavati jedna iza druge, odnosno treba čekati dodijeljeno ime u obliku "Nit 1", "Nit 2", "Nit 3" itd. te bi trebala izračunati sumu elemenata horizontalno (lijevo ili desno ovisno o tome je li red paran ili neparan) od elementa sporedne dijagonale (ne uzimajući u obzir element na sporednoj dijagonali). Suma se radi horizontalno prema lijevo ako se radi o parnom retku, a horizontalno prema desno ako se radi o neparnom retku.</strong></summary>
 	
 ```java
 import java.util.Scanner;
