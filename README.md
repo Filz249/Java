@@ -1828,6 +1828,150 @@ public class Main {
 <br>
 <br>
 
+<details>
+<summary><strong>Program provjerava poklapaju li se sume svih redaka, stupaca i obiju dijagonala. Na kraju ispisuje 1 ili -1 te sumu prvog reda (kako je prikazano u primjeru ulaza i izlaza).</strong></summary>
+
+```java 
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		int n = scanner.nextInt();
+
+		int[][] matrica = new int[n][n];
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				matrica[i][j] = scanner.nextInt();
+			}
+		}
+
+		int ciljanaSuma = 0;
+		for (int j = 0; j < n; j++) {
+			ciljanaSuma += matrica[0][j];
+		}
+
+		boolean jeMagicni = true;
+
+		for (int i = 0; i < n; i++) {
+			int sumaReda = 0;
+			for (int j = 0; j < n; j++) {
+				sumaReda += matrica[i][j];
+			}
+			if (sumaReda != ciljanaSuma) {
+				jeMagicni = false;
+			}
+		}
+
+		for (int j = 0; j < n; j++) {
+			int sumaStupca = 0;
+			for (int i = 0; i < n; i++) {
+				sumaStupca += matrica[i][j];
+			}
+			if (sumaStupca != ciljanaSuma) {
+				jeMagicni = false;
+			}
+		}
+
+		int sumaGlavne = 0;
+		for (int i = 0; i < n; i++) {
+			sumaGlavne += matrica[i][i];
+		}
+		if (sumaGlavne != ciljanaSuma) {
+			jeMagicni = false;
+		}
+
+		int sumaSporedne = 0;
+		for (int i = 0; i < n; i++) {
+			sumaSporedne += matrica[i][n - 1 - i];
+		}
+		if (sumaSporedne != ciljanaSuma) {
+			jeMagicni = false;
+		}
+
+		if (jeMagicni) {
+			System.out.println("1 " + ciljanaSuma);
+		} else {
+			System.out.println("-1 " + ciljanaSuma);
+		}
+
+		scanner.close();
+	}
+}
+```
+</details>
+
+---
+<br>
+<br>
+
+<details>
+<summary><strong>U ovom zadatku tražimo sve nule (0) kojima su svi postojeći susjedi (horizontalni, vertikalni i dijagonalni) jednaki 1. Za elemente na rubovima matrice provjeravaju se samo oni susjedi koji se nalaze unutar granica matrice.</strong></summary>
+
+```java 
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Unesi broj redaka/stupaca (N): ");
+        int n = scanner.nextInt();
+
+        int[][] matrica = new int[n][n];
+
+        System.out.println("Unesi elemente matrice (samo 0 i 1):");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrica[i][j] = scanner.nextInt();
+            }
+        }
+
+        int brojacNula = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrica[i][j] == 0) {
+                    boolean sveJediniceOkoNje = true;
+
+                    for (int di = -1; di <= 1; di++) {
+                        for (int dj = -1; dj <= 1; dj++) {
+                            if (di == 0 && dj == 0) {
+                                continue;
+                            }
+
+                            int noviI = i + di;
+                            int noviJ = j + dj;
+
+                            if (noviI >= 0 && noviI < n && noviJ >= 0 && noviJ < n) {
+                                if (matrica[noviI][noviJ] == 0) {
+                                    sveJediniceOkoNje = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!sveJediniceOkoNje) break;
+                    }
+
+                    if (sveJediniceOkoNje) {
+                        brojacNula++;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Broj nula okruženih jedinicama: " + brojacNula);
+        scanner.close();
+    }
+}
+```
+
+</details>
+
+---
+<br>
+<br>
 
 # PREDROK ZADACI
 
